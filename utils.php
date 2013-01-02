@@ -11,6 +11,14 @@ function he($str) {
   return htmlentities($str, ENT_QUOTES, "UTF-8");
 }
 
+
+function print_r_html ($arr) {
+    ?><pre><?
+    print_r($arr);
+    ?></pre><?
+}
+
+
 // FB API GLOBAL SCOPE ONLY!!!
 /*function getFriends($person,$limit=0){
 	echo "got here";
