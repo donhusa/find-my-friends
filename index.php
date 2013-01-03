@@ -34,10 +34,8 @@ if ($user_id) {
     }
   }
   //include ('status_feed_parser.php');
-
+  //include ('tests/find_group_tests.php');
   include ('get_mutual_friends.php');
-
-
 
   include ('find_group.php');
 

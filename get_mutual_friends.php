@@ -58,6 +58,7 @@ foreach ($batch_response as $b_ind => $response) {
 		next($my_friends);
 	}
 }
+reset($my_friends);
 /*
 mut_id_map allows mutual friend id's to be iterated over
 	index => friend id
@@ -70,6 +71,7 @@ foreach ($mutual_friends as $friend_id => $mut) {
 }
 /*
 --->overlap[f1][f2] => array of shared friends
+--->connected[f1][f2] => whether f1 and f2 are friends
 */
 for ($i=0;$i<count($mutual_friends);$i++) {
 	$curr_friend = $mut_id_map[$i];
@@ -77,20 +79,28 @@ for ($i=0;$i<count($mutual_friends);$i++) {
 		$curr_comp_fr = $mut_id_map[$j];
 		if (($i != $j) ) {
 			if (!isset($overlap[$curr_friend][$curr_comp_fr])) {
-				/*echo '->'.$my_friends[$curr_friend] . '  ' . $my_friends[$curr_comp_fr];
-				echo '<br>---<br>';
+				//echo '->'.$my_friends[$curr_friend] . '  ' . $my_friends[$curr_comp_fr];
+				/*echo '<br>---<br>';
 				print_r($mutual_friends[$curr_friend]);
 				echo '<br>---<br>';
 				print_r($mutual_friends[$curr_comp_fr]);
 				echo '<br>---<br>';*/
 				$intersect=find_friend_intersect($mutual_friends[$curr_friend],
-										  $mutual_friends[$curr_comp_fr]);
+						$mutual_friends[$curr_comp_fr]);
+				$conn=find_friend_connection($mutual_friends[$curr_friend],
+						$mutual_friends[$curr_comp_fr],$curr_friend,$curr_comp_fr);
 				if (count($intersect)>0) {
 					$overlap[$curr_friend][$curr_comp_fr] = $intersect;
 					$overlap[$curr_comp_fr][$curr_friend] = $intersect;
 				}
+				$connected[$curr_friend][$curr_comp_fr] = $conn;
+				$connected[$curr_comp_fr][$curr_friend] = $conn;
+				//print_r($intersect);
+				/*if ($connected[$curr_friend][$curr_comp_fr]) echo ' friends ';
+				else echo ' not friends ';
+				echo '<br>---<br>';*/
 			}
-			//print_r( $overlap[$curr_friend][$curr_comp_fr]);
+
 		}
 	}
 }
@@ -106,7 +116,12 @@ for ($i=0;$i<count($mutual_friends);$i++) {
 	next($mutual_friends);
 }*/
 
-
+function find_friend_connection ($arr1, $arr2, $f1, $f2) {
+	foreach ($arr1 as $i => $friend1) {
+		if ($friend1['id']==$f2) return true;
+	}
+	return false;
+}
 
 function find_friend_intersect ($arr1, $arr2) {
 	foreach ($arr1 as $i => $friend1) {
@@ -118,6 +133,7 @@ function find_friend_intersect ($arr1, $arr2) {
 	}
 	return $intersection;
 }
+
 
 
 

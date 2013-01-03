@@ -1,4 +1,5 @@
 <?php
+test_intersect();
 function test_intersect() {
 	echo 'testing';
 	$arr=array(0 => 
@@ -26,6 +27,30 @@ function test_intersect() {
 
 	echo '<br>---<br>';
 	print_r($inter);
+	echo '<br>---<br>';
+	$conn = find_friend_connection($arr, $arr2, 12, 15);
+	echo 'conn: ';
+	if ($conn) echo 'friends';
+	else echo 'not friends';
+
+}
+
+function find_friend_connection ($arr1, $arr2, $f1, $f2) {
+	foreach ($arr1 as $i => $friend1) {
+		if ($friend1['id']===$f2) return true;
+	}
+	return false;
+}
+
+function find_friend_intersect ($arr1, $arr2) {
+	foreach ($arr1 as $i => $friend1) {
+		foreach ($arr2 as $j => $friend2) {
+			if ($friend1['id']===$friend2['id']) {
+				$intersection[] = $friend1;
+			}
+		}
+	}
+	return $intersection;
 }
 
 //compare inner
