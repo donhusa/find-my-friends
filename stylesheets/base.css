@@ -38,6 +38,7 @@ header {
   border-left: 1px solid #b3b3b3;
   border-right: 1px solid #b3b3b3;
   border-top: 1px solid #b3b3b3;
+  border-bottom: 1px solid #b3b3b3;
   font-size: 11px;
   padding: 24px 18px;
 }
@@ -189,8 +190,15 @@ header .tagline {
   margin-bottom: 15px;
   text-align: center;
 }
+#overlap h1 {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #696969;
+  font-size: 21px;
+}
 
-#guides, #samples {
+
+#guides, #samples, #overlap {
   padding: 20px 5px 20px 10px;
 }
 
@@ -202,10 +210,16 @@ header .tagline {
 }
 
 #guides ul li p,
-#samples ul {
+#samples ul,
+#overlap {
   padding: 0 4px;
 }
 /* ------------------------------------------ */
+
+#overlap-text {
+  color: #626262;
+
+}
 
 /* =guides
 --------------------------------------------- */
@@ -257,6 +271,14 @@ header .tagline {
 /* =samples
 --------------------------------------------- */
 #samples {
+  background-image: url("../images/samples-bg.png");
+  border-bottom: 1px solid #dadada;
+  border-left: 1px solid #b3b3b3;
+  border-right: 1px solid #b3b3b3;
+  border-top: 1px solid #fff;
+}
+#overlap {
+  height: 100%;
   background-image: url("../images/samples-bg.png");
   border-bottom: 1px solid #dadada;
   border-left: 1px solid #b3b3b3;

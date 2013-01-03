@@ -1,6 +1,6 @@
  <?php
 
-$BATCH_SIZE=20; //number of friend queries per batch
+$BATCH_SIZE=25; //number of friend queries per batch
 
 
 /*

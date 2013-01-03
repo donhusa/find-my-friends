@@ -1,6 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ERROR | E_WARNING | E_PARSE /*| E_NOTICE*/);
+//ini_set('display_errors', 1);
+//error_reporting(E_ERROR | E_WARNING | E_PARSE /*| E_NOTICE*/);
 //ini_set('memory_limit', '-1'/*'128M'*/); 
 
 // Provides access to app id and app secret
@@ -127,8 +127,9 @@ $app_name = idx($app_info, 'name', '');
       </div>
       <?php } else { ?>
       <div>
-        <h1>Welcome</h1>
-        <div class="fb-login-button" data-scope="user_activities,user_hometown,user_location,user_status,user_education_history,user_groups,user_likes,user_photos,user_work_history,friends_education_history,friends_groups,friends_likes,friends_work_history,friends_hometown,friends_location,read_stream"></div>
+        <h1>Welcome to Find My Friends!</h1>
+        <div class="fb-login-button" data-scope=""></div>
+      <!--data-scope="user_activities,user_hometown,user_location,user_status,user_education_history,user_groups,user_likes,user_photos,user_work_history,friends_education_history,friends_groups,friends_likes,friends_work_history,friends_hometown,friends_location,read_stream"-->
       <!--read stream gives feed wall access-->
       </div>
       <?php } ?>
@@ -137,8 +138,8 @@ $app_name = idx($app_info, 'name', '');
     <?php
       if ($user_id) {
     ?>
-
-    <?php include('examples/api-examples.php');?>
+    <?php include('view.php');?>
+    <?php //include('examples/api-examples.php');?>
 
     <?php
       }

@@ -1,39 +1,22 @@
-Facebook/Heroku sample app -- PHP
-=================================
 
-This is a sample app showing use of the Facebook Graph API, written in PHP, designed for deployment to [Heroku](http://www.heroku.com/).
+Notes:
 
-Run locally
------------
+PHP errors turned off for production
+there are all kinds of global variables flying around...
+3 batches of 25 friends used (rather than all friends)
+	full friend query takes ~45 seconds
+all advanced permissions (e.g. education, location info) have been removed for production
+	see index.php -> data-scope
 
-Configure Apache with a `VirtualHost` that points to the location of this code checkout on your system.
 
-[Create an app on Facebook](https://developers.facebook.com/apps) and set the Website URL to your local VirtualHost.
+TODO:
 
-Copy the App ID and Secret from the Facebook app settings page into your `VirtualHost` config, something like:
+status_feed_parser - should be used to find seed friends
+	(friend groups that don't interact aren't helpful)
 
-    <VirtualHost *:80>
-        DocumentRoot /Users/adam/Sites/myapp
-        ServerName myapp.localhost
-        SetEnv FACEBOOK_APP_ID 12345
-        SetEnv FACEBOOK_SECRET abcde
-    </VirtualHost>
+lots of mutual friends - proably same school
+few mutual friends - more likely to have met in a group / event
 
-Restart Apache, and you should be able to visit your app at its local URL.
-
-Deploy to Heroku via Facebook integration
------------------------------------------
-
-The easiest way to deploy is to create an app on Facebook and click Cloud Services -> Get Started, then choose PHP from the dropdown.  You can then `git clone` the resulting app from Heroku.
-
-Deploy to Heroku directly
--------------------------
-
-If you prefer to deploy yourself, push this code to a new Heroku app on the Cedar stack, then copy the App ID and Secret into your config vars:
-
-    heroku create --stack cedar
-    git push heroku master
-    heroku config:add FACEBOOK_APP_ID=12345 FACEBOOK_SECRET=abcde
-
-Enter the URL for your Heroku app into the Website URL section of the Facebook app settings page, hen you can visit your app on the web.
-
+link to overlap to actually see friends
+use pictures of friends to show friend groups
+animate friend groups
