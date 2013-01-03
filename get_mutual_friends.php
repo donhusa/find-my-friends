@@ -1,6 +1,6 @@
  <?php
 
-$BATCH_SIZE=30; //number of friend queries per batch
+$BATCH_SIZE=20; //number of friend queries per batch
 
 
 /*
@@ -27,7 +27,7 @@ Batch requests return JSON strings
 $full_batches= floor(count($my_friends)/$BATCH_SIZE);
 reset($my_friends);
 
-for ($i=0;$i< 2/*$full_batches*/;$i++){
+for ($i=0;$i< 3/*$full_batches*/;$i++){
 	//make each batch
 	$batch_string='[';
 	for ($j=0;$j<$BATCH_SIZE;$j++){
@@ -58,34 +58,44 @@ foreach ($batch_response as $b_ind => $response) {
 		next($my_friends);
 	}
 }
-
+/*
+mut_id_map allows mutual friend id's to be iterated over
+	index => friend id
+aka the friends used for the app!!
+*/
 $i=0;
 foreach ($mutual_friends as $friend_id => $mut) {
 	$mut_id_map[$i]=$friend_id;
 	$i++;
 }
-
+/*
+--->overlap[f1][f2] => array of shared friends
+*/
 for ($i=0;$i<count($mutual_friends);$i++) {
 	$curr_friend = $mut_id_map[$i];
 	for ($j=0;$j<count($mutual_friends);$j++) {
-		if ($i != $j) {
-			$curr_comp_fr = $mut_id_map[$j];
-			echo $my_friends[$curr_friend] . '  ' . $my_friends[$curr_comp_fr];
-			echo '<br>---<br>';
-			print_r($mutual_friends[$curr_friend]);
-			echo '<br>---<br>';
-			print_r($mutual_friends[$curr_comp_fr]);
-			echo '<br>---<br>';
-			$overlap[$curr_friend][$curr_comp_fr] = 
-				find_friend_intersect($mutual_friends[$curr_friend],
-									  $mutual_friends[$curr_comp_fr],'compare_ppl');
-			print_r( $overlap[$curr_friend][$curr_comp_fr]);
-			echo '<br><br>';
+		$curr_comp_fr = $mut_id_map[$j];
+		if (($i != $j) ) {
+			if (!isset($overlap[$curr_friend][$curr_comp_fr])) {
+				/*echo '->'.$my_friends[$curr_friend] . '  ' . $my_friends[$curr_comp_fr];
+				echo '<br>---<br>';
+				print_r($mutual_friends[$curr_friend]);
+				echo '<br>---<br>';
+				print_r($mutual_friends[$curr_comp_fr]);
+				echo '<br>---<br>';*/
+				$intersect=find_friend_intersect($mutual_friends[$curr_friend],
+										  $mutual_friends[$curr_comp_fr]);
+				if (count($intersect)>0) {
+					$overlap[$curr_friend][$curr_comp_fr] = $intersect;
+					$overlap[$curr_comp_fr][$curr_friend] = $intersect;
+				}
+			}
+			//print_r( $overlap[$curr_friend][$curr_comp_fr]);
 		}
 	}
 }
 
-
+/*
 //print_r($mutual_friends);
 reset($mutual_friends);
 for ($i=0;$i<count($mutual_friends);$i++) {
@@ -94,7 +104,7 @@ for ($i=0;$i<count($mutual_friends);$i++) {
 	print_r(current($mutual_friends));
 	echo '<br><br>';
 	next($mutual_friends);
-}
+}*/
 
 
 

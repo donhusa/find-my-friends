@@ -36,6 +36,9 @@ if ($user_id) {
   //include ('status_feed_parser.php');
 
   include ('get_mutual_friends.php');
+
+
+
   include ('find_group.php');
 
   include ('examples/heroku-queries.php');
