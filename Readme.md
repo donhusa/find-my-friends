@@ -2,7 +2,6 @@
 Notes:
 
 PHP errors turned off for production
-there are all kinds of global variables flying around...
 3 batches of 25 friends used (rather than all friends)
 	full friend query takes ~45 seconds
 all advanced permissions (e.g. education, location info) have been removed for production
@@ -20,3 +19,22 @@ few mutual friends - more likely to have met in a group / event
 link to overlap to actually see friends
 use pictures of friends to show friend groups
 animate friend groups
+
+TO LEARN: 
+
+learn how to use test users
+log in as an app
+use app analytics
+
+ABOUT:
+
+aggregation: Person FOUND a FRIEND GROUP on FIND MY FRIENDS
+see which friends have: same education, hometown, work, likes, groups
+bond over sports, interests
+agree upon values
+
+misc FB notes:
+
+authentication (login)
+authorization (allow app to access data (if first time) / access token)
+	-get status knows both 

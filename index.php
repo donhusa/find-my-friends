@@ -36,11 +36,16 @@ if ($user_id) {
   //include ('status_feed_parser.php');
   //include ('tests/find_group_tests.php');
   include ('get_mutual_friends.php');
-
   include ('find_group.php');
 
-  include ('examples/heroku-queries.php');
+  $my_friends=array();
+  $mutual_friends=array();
+  $connected=array();
+  $overlap=array();
+  get_mutual_friends($facebook,$my_friends,$mutual_friends,$connected,$overlap);
+  $overlap_count=count_overlap($overlap);
 }
+
 // Fetch the basic info of the app that they are using
 $app_info = $facebook->api('/'. AppInfo::appID());
 $app_name = idx($app_info, 'name', '');

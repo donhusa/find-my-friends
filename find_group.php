@@ -8,23 +8,23 @@ Inputs
 --->overlap[f1][f2] => array of shared friends (with each other and me) {id, name}
 */
 
-//print_r($overlap);
 
-foreach ($overlap as $f1 => $intermed) { 
-	foreach ($intermed as $f2=>$shared_friends) {
-		$index = count($overlap[$f1][$f2]);
-		if (!isset($overlap_count[$index])) {
-			$overlap_count[$index]=array($f1,$f2);
+function count_overlap(&$overlap) {
+	foreach ($overlap as $f1 => $intermed) { 
+		foreach ($intermed as $f2=>$shared_friends) {
+			$index = count($overlap[$f1][$f2]);
+			if (!isset($overlap_count[$index])) {
+				$overlap_count[$index]=array($f1,$f2);
+			}
+			/*else { // notice!!! only look at the id's 2 at a time (might get rid of this)
+				$overlap_count[$index]=
+					array_merge($overlap_count[$index],array($f1,$f2));
+			}*/
 		}
-		/*else { // notice!!! only look at the id's 2 at a time (might get rid of this)
-			$overlap_count[$index]=
-				array_merge($overlap_count[$index],array($f1,$f2));
-		}*/
 	}
+	krsort($overlap_count);
+	return $overlap_count;
 }
-
-krsort($overlap_count);
-
 
 function print_overlap() {
 	global $my_friends, $overlap_count, $connected;
