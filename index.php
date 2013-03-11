@@ -49,9 +49,8 @@ if ($user_id) {
   $friend_groups=find_mail_groups($facebook,$user_id,$my_friends,$seeds);
   include ('commonalities.php');
   $friend_groups_data=find_commonalities($facebook,$friend_groups);
-  // echo "<pre>";
-  // print_r($friend_groups_data);
-  // echo "</pre>------";
+  include ('group_view.php');
+  // show_groups($facebook, $friend_groups_data);
 }
 
 // Fetch the basic info of the app that they are using

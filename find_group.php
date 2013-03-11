@@ -78,6 +78,7 @@ function extract_individuals_n_groups($my_friends,&$friend_groups,&$individuals)
 				unset($friend_groups[$i][$j]);
 			}
 		}
+		$friend_groups[$i]=array_values($friend_groups[$i]);
 	}
 }
 

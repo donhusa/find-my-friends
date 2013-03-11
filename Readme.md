@@ -8,13 +8,20 @@ all advanced permissions (e.g. education, location info) have been removed for p
 	see index.php -> data-scope
 
 
+Ideas:
+
+lots of mutual friends - proably same school
+few mutual friends - more likely to have met in a group / event
+
+
 TODO:
+
+fix authorization - not all data is used
+get user's picture to go along with name
 
 status_feed_parser - should be used to find seed friends
 	(friend groups that don't interact aren't helpful)
 
-lots of mutual friends - proably same school
-few mutual friends - more likely to have met in a group / event
 
 link to overlap to actually see friends
 use pictures of friends to show friend groups

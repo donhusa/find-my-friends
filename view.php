@@ -3,6 +3,7 @@
 
       <div id="overlap-text">
           <?php
+     		    show_groups($facebook, $friend_groups_data);
           		//print_overlap();
           ?>
       </div>
