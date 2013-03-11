@@ -3,7 +3,7 @@
 
       <div id="overlap-text">
           <?php
-          		print_overlap();
+          		//print_overlap();
           ?>
       </div>
 

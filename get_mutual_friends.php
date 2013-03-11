@@ -2,11 +2,12 @@
 
 $BATCH_SIZE=25; //number of friend queries per batch
 
-// --->my_friends[id] => name
-// --->mutual_friends[friend_id] => array of mutual friends (with me) {id, name}
-// --->connected[f1][f2] => whether f1 and f2 are friends
-// --->overlap[f1][f2] => array of shared friends (with each other and me) {id, name}
-
+/*
+--->my_friends[id] => name
+--->mutual_friends[friend_id] => array of mutual friends (with me) {id, name}
+--->connected[f1][f2] => whether f1 and f2 are friends
+--->overlap[f1][f2] => array of shared friends (with each other and me) {id, name}
+*/
 
 function get_mutual_friends($facebook,&$my_friends,&$mutual_friends,&$connected,&$overlap){
 	$my_friends=get_friend_list($facebook);
@@ -15,13 +16,6 @@ function get_mutual_friends($facebook,&$my_friends,&$mutual_friends,&$connected,
 	find_overlap_n_connected($facebook, $mutual_friends,$overlap,$connected);
 }
 
-
-/*
-Get list of friends
---->my_friends - id => name
-*/
-
-//$my_friends=get_friend_list($facebook);
 function get_friend_list($facebook) {
 	$my_friends_raw = $facebook->api('/me/friends','GET');
 	foreach ($my_friends_raw['data'] as $ind => $friend) {
@@ -42,9 +36,6 @@ Batch requests return JSON strings
 // currently, only 2 batches are sent (for performance)
 //		all analysis done from those two batches
 
-
-
-//$batch_response=fb_friend_query($facebook, $my_friends);
 function fb_friend_query($facebook, $my_friends) {
 	global $BATCH_SIZE;
 
@@ -70,11 +61,8 @@ function fb_friend_query($facebook, $my_friends) {
 	return $batch_response;
 }
 /*
-Decode the JSON
---->mutual_friends - friend id => array of mutual friends {id, name}
-e.g. mutual_friends[friend][index][name] gives name of friend's friend (also your fr.)
+mutual_friends[friend][index][name] gives name of friend's friend (also your fr.)
 */
-//$mutual_friends=json_decoder($facebook, $my_friends, $batch_response);
 function json_decoder($facebook, $my_friends, $batch_response) {
 	global $BATCH_SIZE;
 
@@ -97,19 +85,12 @@ mut_id_map allows mutual friend id's to be iterated over
 aka the friends used for the app!!
 */
 
-// $overlap=array();
-// $connected=array();
-// find_overlap_n_connected($facebook, $mutual_friends,$overlap,$connected);
 function find_overlap_n_connected($facebook, $mutual_friends,&$overlap,&$connected){
 	$i=0;
 	foreach ($mutual_friends as $friend_id => $mut) {
 		$mut_id_map[$i]=$friend_id;
 		$i++;
 	}
-	/*
-	--->overlap[f1][f2] => array of shared friends
-	--->connected[f1][f2] => whether f1 and f2 are friends
-	*/
 	for ($i=0;$i<count($mutual_friends);$i++) {
 		$curr_friend = $mut_id_map[$i];
 		for ($j=0;$j<count($mutual_friends);$j++) {
@@ -161,7 +142,3 @@ function find_friend_intersect ($arr1, $arr2) {
 	}
 	return $intersection;
 }
-
-
-
-

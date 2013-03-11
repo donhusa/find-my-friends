@@ -1,6 +1,6 @@
 <?php
-//ini_set('display_errors', 1);
-//error_reporting(E_ERROR | E_WARNING | E_PARSE /*| E_NOTICE*/);
+ini_set('display_errors', 1);
+error_reporting(E_ERROR | E_WARNING | E_PARSE /*| E_NOTICE*/);
 //ini_set('memory_limit', '-1'/*'128M'*/); 
 
 // Provides access to app id and app secret
@@ -11,7 +11,7 @@ if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != 
   header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
   exit();
 }
-require_once('utils.php');
+require_once('examples/utils.php');
 require_once('sdk/src/facebook.php');
 
 $facebook = new Facebook(array(
@@ -42,8 +42,16 @@ if ($user_id) {
   $mutual_friends=array();
   $connected=array();
   $overlap=array();
-  get_mutual_friends($facebook,$my_friends,$mutual_friends,$connected,$overlap);
-  $overlap_count=count_overlap($overlap);
+  //get_mutual_friends($facebook,$my_friends,$mutual_friends,$connected,$overlap);
+  //$overlap_count=count_overlap($overlap);
+  $seeds=array();
+  $my_friends=get_friend_list($facebook);
+  $friend_groups=find_mail_groups($facebook,$user_id,$my_friends,$seeds);
+  include ('commonalities.php');
+  $friend_groups_data=find_commonalities($facebook,$friend_groups);
+  // echo "<pre>";
+  // print_r($friend_groups_data);
+  // echo "</pre>------";
 }
 
 // Fetch the basic info of the app that they are using
@@ -133,7 +141,8 @@ $app_name = idx($app_info, 'name', '');
       <?php } else { ?>
       <div>
         <h1>Welcome to Find My Friends!</h1>
-        <div class="fb-login-button" data-scope=""></div>
+        <div class="fb-login-button"
+        data-scope="read_mailbox"></div>
       <!--data-scope="user_activities,user_hometown,user_location,user_status,user_education_history,user_groups,user_likes,user_photos,user_work_history,friends_education_history,friends_groups,friends_likes,friends_work_history,friends_hometown,friends_location,read_stream"-->
       <!--read stream gives feed wall access-->
       </div>
