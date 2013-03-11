@@ -1,38 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ERROR | E_WARNING | E_PARSE /*| E_NOTICE*/);
-//ini_set('memory_limit', '-1'/*'128M'*/); 
-
-// Provides access to app id and app secret
-require_once('AppInfo.php');
-
-// Enforce https on production
-if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
-  header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-  exit();
-}
-require_once('examples/utils.php');
-require_once('sdk/src/facebook.php');
-
-$facebook = new Facebook(array(
-  'appId'  => AppInfo::appID(),
-  'secret' => AppInfo::appSecret(),
-  'sharedSession' => true,
-  'trustForwarded' => true,
-));
-
-$user_id = $facebook->getUser();
+include ('resources/fb_init.php');
 if ($user_id) {
-  try {
-    $basic = $facebook->api('/me');
-  } catch (FacebookApiException $e) {
-    // If the call fails we check if we still have a user. The user will be
-    // cleared if the error is because of an invalid accesstoken
-    if (!$facebook->getUser()) {
-      header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
-      exit();
-    }
-  }
   //include ('status_feed_parser.php');
   //include ('tests/find_group_tests.php');
   include ('get_mutual_friends.php');
@@ -61,33 +29,7 @@ $app_name = idx($app_info, 'name', '');
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
-
-    <title><?php echo he($app_name); ?></title>
-    <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
-    <link rel="stylesheet" href="stylesheets/mobile.css" 
-        media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
-    <!--[if IEMobile]>
-    <link rel="stylesheet" href="mobile.css" media="screen" type="text/css"  />
-    <![endif]-->
-    <meta property="og:title" content="<?php echo he($app_name); ?>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
-    <meta property="og:image" content="<?php echo AppInfo::getUrl('/logo.png'); ?>" />
-    <meta property="og:site_name" content="<?php echo he($app_name); ?>" />
-    <meta property="og:description" content="My first app" />
-    <meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
-
-    <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="/javascript/share_actions.js"></script>
-    <!--[if IE]>
-      <script type="text/javascript">
-        var tags = ['header', 'section'];
-        while(tags.length)
-          document.createElement(tags.pop());
-      </script>
-    <![endif]-->
+    <?php include('resources/meta_tags.php');?>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -141,7 +83,7 @@ $app_name = idx($app_info, 'name', '');
       <div>
         <h1>Welcome to Find My Friends!</h1>
         <div class="fb-login-button"
-        data-scope="read_mailbox"></div>
+        data-scope="read_mailbox,friends_education_history,friends_location,friends_work_history"></div>
       <!--data-scope="user_activities,user_hometown,user_location,user_status,user_education_history,user_groups,user_likes,user_photos,user_work_history,friends_education_history,friends_groups,friends_likes,friends_work_history,friends_hometown,friends_location,read_stream"-->
       <!--read stream gives feed wall access-->
       </div>
