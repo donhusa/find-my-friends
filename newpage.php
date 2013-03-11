@@ -33,7 +33,7 @@ $app_name = idx($app_info, 'name', '');
   </head>
   <body>
     <div id="fb-root"></div>
-    <?php include ('fb_js_init.php');?>
+    <?php include ('resources/fb_js_init.php');?>
 
     <header class="clearfix">
       <?php if (isset($basic)) { ?>
