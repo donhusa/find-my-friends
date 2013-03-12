@@ -18,6 +18,9 @@
           <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
         </p>
         <?php include ('share_app.php');?>
+        
+        <a href="<?php echo AppInfo::getUrl(); ?>" class="facebook-button" >&nbsp; Return to Home Page &nbsp;</a>
+
       </div>
       <?php } else { ?>
       <div>

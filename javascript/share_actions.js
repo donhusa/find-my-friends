@@ -1,25 +1,25 @@
 
 function logResponse(response) {
 	if (console && console.log) {
-  	console.log('The response was', response);
+    console.log('The response was', response);
 	}
 }
 
 $(function(){
 	// Set up so we handle click on the buttons
 	$('#postToWall').click(function() {
-	  FB.ui(
-	    {
-	      method : 'feed',
-	      link   : $(this).attr('data-url')
-	    },
-	    function (response) {
-	      // If response is null the user canceled the dialog
-	      if (response != null) {
-	        logResponse(response);
-	      }
-	    }
-	  );
+    FB.ui(
+      {
+        method : 'feed',
+        link   : $(this).attr('data-url')
+      },
+      function (response) {
+        // If response is null the user canceled the dialog
+        if (response !== null) {
+          logResponse(response);
+        }
+      }
+    );
 });
 
 $('#sendToFriends').click(function() {
@@ -30,7 +30,7 @@ $('#sendToFriends').click(function() {
     },
     function (response) {
       // If response is null the user canceled the dialog
-      if (response != null) {
+      if (response !== null) {
         logResponse(response);
       }
     }
@@ -45,7 +45,7 @@ $('#sendRequest').click(function() {
     },
     function (response) {
       // If response is null the user canceled the dialog
-      if (response != null) {
+      if (response !== null) {
         logResponse(response);
       }
     }

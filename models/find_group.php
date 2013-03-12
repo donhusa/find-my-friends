@@ -1,24 +1,28 @@
 <?php
 
-function find_mail_groups($facebook,$user_id, $my_friends,&$individuals){
-	$friend_groups=get_mail_data($facebook);
+function find_mail_groups($facebook,$user_id, $my_friends,&$individuals,$num_queries){
+	$friend_groups=get_mail_data($facebook, $num_queries);
 	remove_self_from_group($friend_groups,$user_id);
 	extract_individuals_n_groups($my_friends,$friend_groups,$individuals);
-
-	// echo "<pre>";
-	// print_r($friend_groups);
-	// echo "</pre>";
 	return $friend_groups;
 }
 
-function get_mail_data($facebook) {
-	$raw1=$facebook->api('me/inbox?fields=to,from&limit=15');
-	$raw2=$facebook->api('me/inbox?fields=to,from&limit=15&offset=15');
-	// $raw3=$facebook->api('me/inbox?fields=to,from&limit=15&offset=30');
-	$raw1=$raw1['data'];
-	$raw2=$raw2['data'];
-	// $raw3=$raw3['data'];
-	$raw=array_merge($raw1,$raw2);//,$raw3);
+function get_mail_data($facebook, $num_queries) {
+	$BATCH_SIZE = 15;
+	
+	$num_batches=0;
+	while ($num_queries > 0) {
+		$offset=$BATCH_SIZE * $num_batches;
+		$raw_data[$num_batches] =
+			$facebook->api('me/inbox?fields=to,from&limit='.$BATCH_SIZE.'&offset='.$offset);
+		$num_batches++;
+		$num_queries=$num_queries-$BATCH_SIZE;
+	}
+	$raw=array();
+	foreach ($raw_data as $i => $response) {
+		$raw=array_merge($raw,$response['data']);
+	}
+
 	$friend_groups=array();
 	$i=0;
 	foreach ($raw as $i => $to) {
