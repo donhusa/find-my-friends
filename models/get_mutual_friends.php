@@ -16,14 +16,23 @@ function get_mutual_friends($facebook,&$my_friends,&$mutual_friends,&$connected,
 	find_overlap_n_connected($facebook, $mutual_friends,$overlap,$connected);
 }
 
-function get_friend_list($facebook) {
-	$my_friends_raw = $facebook->api('/me/friends','GET');
-	foreach ($my_friends_raw['data'] as $ind => $friend) {
-		$my_friends[$friend['id']]=$friend['name'];
+function count_overlap(&$overlap) {
+	foreach ($overlap as $f1 => $intermed) { 
+		foreach ($intermed as $f2=>$shared_friends) {
+			$index = count($overlap[$f1][$f2]);
+			if (!isset($overlap_count[$index])) {
+				$overlap_count[$index]=array($f1,$f2);
+			}
+			/*else { // notice!!! only look at the id's 2 at a time (might get rid of this)
+				$overlap_count[$index]=
+					array_merge($overlap_count[$index],array($f1,$f2));
+			}*/
+		}
 	}
-	unset($my_friends_raw);
-	return $my_friends;
+	krsort($overlap_count);
+	return $overlap_count;
 }
+
 
 /*
 Ask FB for a list of mutual friends for each of your friends

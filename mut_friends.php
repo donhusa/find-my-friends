@@ -1,9 +1,10 @@
 <?php
-include ('resources/fb_init.php');
+require ('resources/fb_init.php');
 if ($user_id) {
   //include ('status_feed_parser.php');
-  include ('get_mutual_friends.php');
-  include ('find_group.php');
+  require ('models/get_friend_list.php');
+  require ('models/get_mutual_friends.php');
+  require ('models/find_group.php');
 
   $my_friends=array();
   $mutual_friends=array();
@@ -14,5 +15,5 @@ if ($user_id) {
 }
 
 $view_path="views/friend_overlap.php";
-include ('views/app_skeleton_view.php');
+require ('views/app_skeleton_view.php');
 ?>

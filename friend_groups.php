@@ -1,10 +1,9 @@
 <?php
-include ('resources/fb_init.php');
+require ('resources/fb_init.php');
 if ($user_id) {
-  //include ('status_feed_parser.php');
-  //include ('tests/find_group_tests.php');
-  include ('get_mutual_friends.php');
-  include ('find_group.php');
+  //require ('status_feed_parser.php');
+  require ('models/get_friend_list.php');
+  require ('models/find_group.php');
 
   // $my_friends=array();
   // $mutual_friends=array();
@@ -16,15 +15,15 @@ if ($user_id) {
    $seeds=array();
   $my_friends=get_friend_list($facebook);
   $friend_groups=find_mail_groups($facebook,$user_id,$my_friends,$seeds);
-  include ('commonalities.php');
+  require ('models/commonalities.php');
   $friend_groups_data=find_commonalities($facebook,$friend_groups);
-  // include ('group_view.php');
+  // require ('group_view.php');
 
   // show_groups($facebook, $friend_groups_data);
 }
 
 $view_path="views/groups_view.php";
-include ('views/app_skeleton_view.php');
+require ('views/app_skeleton_view.php');
 ?>
 
 

@@ -1,22 +1,5 @@
 <?php
 
-function count_overlap(&$overlap) {
-	foreach ($overlap as $f1 => $intermed) { 
-		foreach ($intermed as $f2=>$shared_friends) {
-			$index = count($overlap[$f1][$f2]);
-			if (!isset($overlap_count[$index])) {
-				$overlap_count[$index]=array($f1,$f2);
-			}
-			/*else { // notice!!! only look at the id's 2 at a time (might get rid of this)
-				$overlap_count[$index]=
-					array_merge($overlap_count[$index],array($f1,$f2));
-			}*/
-		}
-	}
-	krsort($overlap_count);
-	return $overlap_count;
-}
-
 
 function find_mail_groups($facebook,$user_id, $my_friends,&$individuals){
 	$friend_groups=get_mail_data($facebook);

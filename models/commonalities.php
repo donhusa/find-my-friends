@@ -1,14 +1,14 @@
  <?php
 
+/*
+friend_groups_data =>
+	[i] group # =>
+		[j] person #
+		[common] - loc, sch, work (if majority was found)
+*/
  function find_commonalities($facebook, $friend_groups){
  	//take in query fields as input
  	
- 	/*
-	friend_groups_data =>
-		[i] group # =>
-			[j] person #
-			[common] - loc, sch, work (if majority was found)
- 	*/
  	$friend_groups_data=array();
  	foreach ($friend_groups as $i => $group) {
  		foreach ($group as $j => $person) {

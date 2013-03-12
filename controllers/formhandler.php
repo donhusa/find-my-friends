@@ -10,6 +10,9 @@ if (isset($_REQUEST['likes']) && $_REQUEST['likes']=="yes") {
 	$scope="friends_education_history,friends_location,friends_work_history";
 }
 
+
+//also allow user to change # of friends queried, which affects speed!!!!
+
 if (isset($_REQUEST['jobrequest'])){
 	if ($_REQUEST['jobrequest']=="mut friends"){
 		header( 'Location: ../mut_friends.php');
