@@ -1,6 +1,5 @@
 <?php
 
-//echo $_REQUEST['jobrequest'];
 
 //figure out details later...
 if (isset($_REQUEST['inbox']) && $_REQUEST['inbox']=="yes") {
@@ -12,6 +11,9 @@ if (isset($_REQUEST['likes']) && $_REQUEST['likes']=="yes") {
 
 
 //also allow user to change # of friends queried, which affects speed!!!!
+
+//let user enter in friends, and have common interests for them shown
+	//create your own groups!
 
 if (isset($_REQUEST['jobrequest'])){
 	if ($_REQUEST['jobrequest']=="mut friends"){

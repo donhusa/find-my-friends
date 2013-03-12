@@ -12,7 +12,7 @@ Ideas:
 
 lots of mutual friends - proably same school
 few mutual friends - more likely to have met in a group / event
-
+use the status feed parser to make groups (or at least seeds)!!!!!!
 
 TODO:
 

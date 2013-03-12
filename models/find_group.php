@@ -1,6 +1,5 @@
 <?php
 
-
 function find_mail_groups($facebook,$user_id, $my_friends,&$individuals){
 	$friend_groups=get_mail_data($facebook);
 	remove_self_from_group($friend_groups,$user_id);
@@ -65,18 +64,3 @@ function extract_individuals_n_groups($my_friends,&$friend_groups,&$individuals)
 	}
 }
 
-
-
-// used in views.php
-function print_overlap() {
-	global $my_friends, $overlap_count, $connected;
-	foreach ($overlap_count as $count => $friends) {
-		echo 'Overlap of ' . $count . ' friends between ';
-		$f1=$my_friends[$friends[0]];
-		$f2=$my_friends[$friends[1]];
-		echo $f1. ' and ' .$f2 .'. ';
-		if ($connected[$friends[0]][$friends[1]])
-			echo "They're also friends.";
-		echo '<br><br>';
-	}	
-}
