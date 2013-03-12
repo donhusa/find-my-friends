@@ -9,7 +9,7 @@
         });
         
         FB.Event.subscribe('auth.login', function(response) {
-          window.location = window.location;
+          window.location = window.location;//page refreshes if SDK isn't loaded fast enough?
         });
 
         FB.Canvas.setAutoGrow();
