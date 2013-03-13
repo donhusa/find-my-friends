@@ -2,6 +2,7 @@
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
   <head>
     <?php include('resources/meta_tags.php');?>
+    <?php if(isset($scripts)) echo $scripts; ?>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -19,7 +20,7 @@
         </p>
         <?php include ('share_app.php');?>
         
-        <a href="<?php echo AppInfo::getUrl(); ?>" class="facebook-button" >&nbsp; Return to Home Page &nbsp;</a>
+        <a href="<?php echo AppInfo::getUrl(); ?>" class="facebook-button" >&nbsp; Go to App's Home Page &nbsp;</a>
 
       </div>
       <?php } else { ?>

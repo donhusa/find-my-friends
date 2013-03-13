@@ -9,7 +9,11 @@
 <input type="checkbox" name="inbox" value="yes">Use data from your inbox?<br>
 <input type="checkbox" name="likes" value="yes">Use information about your friends' likes?<br>
 
-Customize your response:<br>
+Customize your response - mutual friends:<br>
+Faster<input type="range" name="mut_groups" min="1" max="5" value="3" step="1" />More Results<br>
+
+
+Customize your response - friend groups:<br>
 Faster<input type="range" name="num_queries" min="5" max="75" value="25" step="5" />More Results<br>
 
 <!-- <a href="#" class="facebook-button" id="postToWall" data-url="http://findmyfriends-dev.localhost:8888/">

@@ -9,9 +9,10 @@ $BATCH_SIZE=25; //number of friend queries per batch
 --->overlap[f1][f2] => array of shared friends (with each other and me) {id, name}
 */
 
-function get_mutual_friends($facebook,&$my_friends,&$mutual_friends,&$connected,&$overlap){
+function get_mutual_friends($facebook,&$my_friends,&$mutual_friends,
+							&$connected,&$overlap,$num_batches){
 	$my_friends=get_friend_list($facebook);
-	$batch_response=fb_friend_query($facebook, $my_friends);
+	$batch_response=fb_friend_query($facebook, $my_friends, $num_batches);
 	$mutual_friends=json_decoder($facebook, $my_friends, $batch_response);
 	find_overlap_n_connected($facebook, $mutual_friends,$overlap,$connected);
 }
@@ -24,6 +25,7 @@ function count_overlap(&$overlap) {
 				$overlap_count[$index]=array($f1,$f2);
 			}
 			/*else { // notice!!! only look at the id's 2 at a time (might get rid of this)
+				// entries overwrite each other... 
 				$overlap_count[$index]=
 					array_merge($overlap_count[$index],array($f1,$f2));
 			}*/
@@ -33,24 +35,18 @@ function count_overlap(&$overlap) {
 	return $overlap_count;
 }
 
-
 /*
 Ask FB for a list of mutual friends for each of your friends
 Batch requests of size BATCH_SIZE used to increase performance
 Batch requests return JSON strings   
 */
-
-// NOTICE!!!!!!
-// don't forget about the final batch (if it really matters)
-// currently, only 2 batches are sent (for performance)
-//		all analysis done from those two batches
-
-function fb_friend_query($facebook, $my_friends) {
+function fb_friend_query($facebook, $my_friends,$num_batches) {
 	global $BATCH_SIZE;
 
+	//used num_batches, as full_batches would take way too long
 	$full_batches= floor(count($my_friends)/$BATCH_SIZE);
 	reset($my_friends);
-	for ($i=0;$i< 3/*$full_batches*/;$i++){
+	for ($i=0;$i< $num_batches /*$full_batches*/;$i++){
 		//make each batch
 		$batch_string='[';
 		for ($j=0;$j<$BATCH_SIZE;$j++){
