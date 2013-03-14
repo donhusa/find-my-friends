@@ -11,13 +11,44 @@ $(document).ready(function(){
 		}
 		console.log(friendIDtext+ "~"+id1+"k"+id2);
 
+		var thisElement=$(this);
 		FB.api("/me","POST",{batch: [{"method":"GET","relative_url":'me/mutualfriends/'+id1+''},
 									{"method":"GET","relative_url":"me/mutualfriends/"+id2+''}]},
 			function(response){
 				alert("finished");
-				console.log(response);
-				//decode the JSON
-				//create new elements n display
-			});
+				var mut_friends={};
+				for (var i in response) {
+					var obj=JSON.parse(response[i]['body']);
+					mut_friends[i]=obj;
+				}
+				var friend1=mut_friends[0]['data'];
+				var friend2=mut_friends[1]['data'];
+
+				var overlap=[];
+				for (var f1 in friend1) {
+					for (var f2 in friend2) {
+						if (friend1[f1]['id']===friend2[f2]['id']) {
+							//overlap.push(friend1[f1]['id']);
+							overlap.push(friend1[f1]);
+						}
+					}
+				}
+				var spanText="";
+				var imSrc="";
+				thisElement.append($('<br />'));
+				for (var j in overlap) {
+					imSrc="https://graph.facebook.com/"+overlap[j]['id']+"/picture";
+					spanText=overlap[j]['name'];
+					var im=$('<img />').attr('src',imSrc);
+					var sp=$('<span />').text(spanText);
+					thisElement.append(im);
+					thisElement.append(sp);
+					$('<br />').appendTo(thisElement);
+				}
+				console.log(overlap);
+				//float the divs?
+				//make popup display 
+			}
+		);
 	});
 });
