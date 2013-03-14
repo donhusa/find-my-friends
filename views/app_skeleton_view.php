@@ -27,8 +27,9 @@
       <div>
         <h1>Welcome to Find My Friends!</h1>
         <div class="fb-login-button"
-        data-scope="read_mailbox,friends_education_history,friends_location,friends_work_history"></div>
-      <!--data-scope="user_activities,user_hometown,user_location,user_status,user_education_history,user_groups,user_likes,user_photos,user_work_history,friends_education_history,friends_groups,friends_likes,friends_work_history,friends_hometown,friends_location,read_stream"-->
+        data-scope="friends_education_history,friends_location,friends_work_history"></div>
+      <!--data-scope="user_activities,user_hometown,user_location,user_status,user_education_history,
+      user_groups,user_likes,user_photos,user_work_history,friends_education_history,friends_groups,friends_likes,friends_work_history,friends_hometown,friends_location,read_stream"-->
       <!--read stream gives feed wall access-->
       </div>
       <?php } ?>
@@ -37,12 +38,15 @@
     <?php
       if ($user_id) {
     ?>
-    <?php include('views/view.php');?>
-    <?php //include('examples/api-examples.php');
-    //$view <-view will be subbed in; set var beforehand!!!!!!
-    //load foreach view?
-    ?>
+    <section id="overlap" class="clearfix">
+      <h1><?php echo $view_title; ?></h1>
 
+      <div id="overlap-text">
+          <?php
+            include ($view_path); //sub in the proper view for the page!!
+          ?>
+      </div>
+    </section>
     <?php
       }
     ?>

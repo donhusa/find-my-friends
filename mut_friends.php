@@ -12,9 +12,6 @@ if ($user_id) {
   
   get_mutual_friends($facebook,$my_friends,$mutual_friends,$connected,$overlap,$num_batches);
   $overlap_count=count_overlap($overlap);
-  // echo '<pre>';
-  // print_r($overlap_count);
-  // echo '</pre>';
 }
 
 $scripts="<script src='javascript/friend_obtainer.js'></script>";

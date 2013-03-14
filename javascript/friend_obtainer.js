@@ -15,7 +15,7 @@ $(document).ready(function(){
 		FB.api("/me","POST",{batch: [{"method":"GET","relative_url":'me/mutualfriends/'+id1+''},
 									{"method":"GET","relative_url":"me/mutualfriends/"+id2+''}]},
 			function(response){
-				alert("finished");
+				// alert("finished");
 				var mut_friends={};
 				for (var i in response) {
 					var obj=JSON.parse(response[i]['body']);

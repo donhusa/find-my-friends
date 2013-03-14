@@ -119,16 +119,6 @@ function find_overlap_n_connected($facebook, $mutual_friends,&$overlap,&$connect
 	}
 }
 
-/*
-//print_r($mutual_friends);
-reset($mutual_friends);
-for ($i=0;$i<count($mutual_friends);$i++) {
-	echo key($mutual_friends) ." " . $my_friends[key($mutual_friends)];
-	echo '<br>';
-	print_r(current($mutual_friends));
-	echo '<br><br>';
-	next($mutual_friends);
-}*/
 
 function find_friend_connection ($arr1, $arr2, $f1, $f2) {
 	foreach ($arr1 as $i => $friend1) {

@@ -1,7 +1,10 @@
 <?php
-
-
+// require ('resources/fb_init.php');
+// $view_title="Welcome to Find My Friends!";
+// $view_path="../views/action_form.php";
+// require ('../views/app_skeleton_view.php');
 //figure out details later...
+
 if (isset($_REQUEST['inbox']) && $_REQUEST['inbox']=="yes") {
 	$scope="read_mailbox";
 }
@@ -13,19 +16,19 @@ if (isset($_REQUEST['likes']) && $_REQUEST['likes']=="yes") {
 //scope stuff ^
 
 
-
-//ajax requests to get names of friends in common!!
-
 //hide n show slide bars w jquery
+
+// pointer mouse for mutual friends
+// names n images -> tooltip
 
 //let user enter in friends, and have common interests for them shown
 	//create your own groups!
 
-//have browser JS get pictures for each person - option w checkbox?
-	//requires sending IDs to browser
-//  https://graph.facebook.com/donhusa/picture
+//pictures - option w checkbox?
+
 
 $GET_string="";
+
 
 if (isset($_REQUEST['jobrequest'])){
 	if ($_REQUEST['jobrequest']=="mut friends"){
@@ -34,7 +37,19 @@ if (isset($_REQUEST['jobrequest'])){
 	}
 	if ($_REQUEST['jobrequest']=="friend group"){
 		add_to_GET_string($GET_string, 'num_queries');
-		header( 'Location: ../friend_groups.php'.$GET_string);
+		
+		//only if user checks the permissions box?
+			//can add when there's another way to form groups
+		if ($_REQUEST['mail_perm']=="not"){
+			$theurl='https://www.facebook.com/dialog/oauth/?client_id='.
+				$_REQUEST['appid']. '&redirect_uri='.$_REQUEST['baseurl'].
+				'friend_groups.php'.$GET_string.'&scope=read_mailbox';
+			header('Location: '.$theurl);
+		}
+		else {
+			header( 'Location: ../friend_groups.php'.$GET_string);
+		}
+
 	}
 }
 else {

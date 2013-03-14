@@ -1,9 +1,8 @@
 <?php
 
-print_overlap();
+print_overlap($my_friends,$overlap_count,$connected);
 
-function print_overlap() {
-	global $my_friends, $overlap_count, $connected;
+function print_overlap($my_friends,$overlap_count,$connected) {
 	foreach ($overlap_count as $count => $friends) {
 		echo '<span class="mutual-friends">Overlap of ' . $count . ' friends between ';
 		$f1=$my_friends[$friends[0]];
