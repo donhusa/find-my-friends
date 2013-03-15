@@ -1,8 +1,12 @@
 <?php
 
-show_groups($facebook, $friend_groups_data);
+show_groups($facebook, $friend_groups_data,$error);
 
-function show_groups($facebook, $friend_groups_data){
+function show_groups($facebook, $friend_groups_data,$error){
+	if ($error) {
+		echo "Mailbox access is required for this part to work...<br><br> ";
+		return;
+	}
 	foreach ($friend_groups_data as $i => $group) {
 		for($j=0;$j<count($group)-1; $j++) {
 			$person=$group[$j];
