@@ -1,6 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ERROR | E_WARNING | E_PARSE /*| E_NOTICE*/);
+// ini_set('display_errors', 1);
+// error_reporting(E_ERROR | E_WARNING | E_PARSE /*| E_NOTICE*/);
 //ini_set('memory_limit', '-1'/*'128M'*/); 
 
 // Provides access to app id and app secret

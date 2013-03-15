@@ -1,38 +1,23 @@
 <?php
-// require ('resources/fb_init.php');
-// $view_title="Welcome to Find My Friends!";
-// $view_path="../views/action_form.php";
-// require ('../views/app_skeleton_view.php');
-//figure out details later...
 
-if (isset($_REQUEST['inbox']) && $_REQUEST['inbox']=="yes") {
-	$scope="read_mailbox";
-}
 if (isset($_REQUEST['likes']) && $_REQUEST['likes']=="yes") {
 	$scope="friends_education_history,friends_location,friends_work_history";
 }
-
-
 //scope stuff ^
+//what to do when authorization error 
 
-
-//hide n show slide bars w jquery
-
-// pointer mouse for mutual friends
 // names n images -> tooltip
 
 //let user enter in friends, and have common interests for them shown
 	//create your own groups!
 
-//pictures - option w checkbox?
-
 
 $GET_string="";
-
 
 if (isset($_REQUEST['jobrequest'])){
 	if ($_REQUEST['jobrequest']=="mut friends"){
 		add_to_GET_string($GET_string, 'mut_groups');
+		add_to_GET_string($GET_string, 'get_pix');
 		header( 'Location: ../mut_friends.php'.$GET_string);
 	}
 	if ($_REQUEST['jobrequest']=="friend group"){
@@ -46,7 +31,7 @@ if (isset($_REQUEST['jobrequest'])){
 				'friend_groups.php'.$GET_string.'&scope=read_mailbox';
 			header('Location: '.$theurl);
 		}
-		else {
+		else { //already have permission
 			header( 'Location: ../friend_groups.php'.$GET_string);
 		}
 

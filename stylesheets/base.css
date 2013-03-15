@@ -163,6 +163,9 @@ header .tagline {
 span.friend-id {
   display: none;
 }
+span.mutual-friends {
+  cursor: pointer;
+}
 
 /* ------------------------------------------ */
 

@@ -33,15 +33,19 @@ $(document).ready(function(){
 						}
 					}
 				}
+				var pix = getUrlVars()['get_pix'];
+
 				var spanText="";
 				var imSrc="";
 				thisElement.append($('<br />'));
 				for (var j in overlap) {
-					imSrc="https://graph.facebook.com/"+overlap[j]['id']+"/picture";
-					spanText=overlap[j]['name'];
-					var im=$('<img />').attr('src',imSrc);
+					if (pix && pix ==='yes') {
+						imSrc="https://graph.facebook.com/"+overlap[j]['id']+"/picture";
+						var im=$('<img />').attr('src',imSrc);
+						thisElement.append(im);
+					}
+					spanText=' '+overlap[j]['name'];
 					var sp=$('<span />').text(spanText);
-					thisElement.append(im);
 					thisElement.append(sp);
 					$('<br />').appendTo(thisElement);
 				}
@@ -52,3 +56,12 @@ $(document).ready(function(){
 		);
 	});
 });
+
+// function taken from the Interwebs
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
